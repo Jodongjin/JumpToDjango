@@ -1,0 +1,24 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="container-">
+    <h5 class="my-3 border-bottom pb-2">질문등록</h5>
+    <!-- question_create 함수 POST로 호출 -->
+    <form method="post">  <!-- action 속성이 없기 때문에 default = 현재 페이지, 즉 create/  modify/  둘 다 가능 -->
+        {% csrf_token %}
+{#        {{ form.as_p }} -> 자동으로 폼을 구성하면 스타일 적용이 제한됨 #}
+        <!-- 오류표시 -->
+        {% include "form_errors.html" %}
+        <div class="mb-3">
+            <label for="subject" class="form-label">제목</label>
+            <input type="text" class="form-control" name="subject" id="subject"
+            value="{{ form.subject.value|default_if_none:'' }}">
+        </div>
+        <div class="mb-3">
+            <label for="content" class="form-label">내용</label>
+            <textarea class="form-control" name="content" id="content"
+                      rows="10">{{ form.content.value|default_if_none:'' }}</textarea>
+        </div>
+        <button type="submit" class="btn btn-primary">저장하기</button>
+    </form>
+</div>
+{% endblock %}
